@@ -8,4 +8,6 @@ And of course, download the osx keymap plugin at plugin market, change your IDE 
 
 To block other programmes, download a [Autohotkey](https://www.autohotkey.com/), Run the script in this repo.
 
+As a reuslt, your left windows key will work as`⌥` key and your left alt key will work as `⌘` in your IDE.
+
 Enjoy~
