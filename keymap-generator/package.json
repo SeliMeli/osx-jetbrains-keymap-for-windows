@@ -1,0 +1,30 @@
+{
+  "name": "keymap-generator",
+  "version": "1.0.0",
+  "description": "generate autohotkeymap script from jetbrains keymap config",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha -r ts-node/register src/tests/**/*.test.ts"
+  },
+  "author": "selimeli",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.2.21",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.7.13",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.32.0",
+    "eslint-plugin-node": "^11.1.0",
+    "mocha": "^9.1.1",
+    "nodeman": "^1.1.2",
+    "prettier": "^2.3.2",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.2"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^3.20.3"
+  }
+}
