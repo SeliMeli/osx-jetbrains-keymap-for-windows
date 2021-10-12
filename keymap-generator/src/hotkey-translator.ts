@@ -19,6 +19,12 @@ export const translateKey = (shortcut: string) => {
             return 'Right'
     }
 
+    if (isAlphabet(shortcut)) {
+        return shortcut.toLowerCase()
+    }
+
     // TODO: symbols, upper case alphabets, return, delete(backspace), tab
     throw 'unknown key'
 }
+
+const isAlphabet = (s: string) => /^[a-zA-Z]$/.test(s)
