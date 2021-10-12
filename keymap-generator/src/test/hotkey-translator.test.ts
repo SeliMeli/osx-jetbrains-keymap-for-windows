@@ -20,6 +20,21 @@ describe('hotkey translator tests', () => {
         })
     })
 
+    describe('should translate arrow keys success', ()=>{
+        const modifierTranslationTable = [
+            ['LEFT', 'Left'],
+            ['UP', 'Up'],
+            ['DOWN', 'Down'],
+            ['RIGHT',  'Right']
+        ]
+        modifierTranslationTable.forEach(([arrowKey, ahkHotkey]) => {
+            it(`should translate ${arrowKey} to ${ahkHotkey} success`, () => {
+                const result = translateKey(arrowKey)
+                result.should.equal(ahkHotkey)
+            });
+        })
+    })
+
     it('should throw error if unknown key is passed', () => {
         const unknownKey = 'unknown'
         expect(() => translateKey(unknownKey)).to.throws('unknown key')
