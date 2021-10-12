@@ -50,4 +50,3 @@ rl.question('Enter xml file to be parsed-', (answer) => {
     console.log(JSON.stringify(parsedKeymap.keymap));
     rl.close();
 });
-
