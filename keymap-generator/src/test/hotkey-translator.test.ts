@@ -35,6 +35,20 @@ describe('hotkey translator tests', () => {
         })
     })
 
+    describe('should translate all alphabetic keys to lowercase success', ()=>{
+        const uppercaseAlphabetTranslations = [
+            ['A', 'a'],
+            ['B', 'b'],
+            ['c', 'c'],
+        ]
+        uppercaseAlphabetTranslations.forEach(([arrowKey, ahkHotkey]) => {
+            it(`should translate ${arrowKey} to ${ahkHotkey} success`, () => {
+                const result = translateKey(arrowKey)
+                result.should.equal(ahkHotkey)
+            });
+        })
+    })
+
     it('should throw error if unknown key is passed', () => {
         const unknownKey = 'unknown'
         expect(() => translateKey(unknownKey)).to.throws('unknown key')
