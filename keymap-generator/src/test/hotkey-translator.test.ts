@@ -42,7 +42,6 @@ describe('hotkey translator tests', () => {
             ['RIGHT',  'Right'],
             ['ENTER', 'Enter'],
             ['TAB', 'Tab'],
-            ['BACKSPACE', 'Backspace'],
             ['SPACE', 'Space'],
         ]
         uppercaseAlphabetTranslations.forEach(([arrowKey, ahkHotkey]) => {
@@ -89,7 +88,7 @@ describe('hotkey translator tests', () => {
     })
 
     it('should throw error if unknown key is passed', () => {
-        const unknownKey = 'unknown'
+        const unknownKey = 'HELL'
         expect(() => translateKey(unknownKey)).to.throws(`unknown key: ${unknownKey}`)
     })
 })
