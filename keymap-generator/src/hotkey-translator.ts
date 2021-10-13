@@ -5,5 +5,5 @@ export const translateKey = (shortcut: string) => {
     if (shortcut === 'shift') return '+'
     if (shortcut === 'alt') return '!'
     // TODO: symbols, upper case alphabets, return, delete(backspace), tab
-    return shortcut
+    throw 'unknown key'
 }
