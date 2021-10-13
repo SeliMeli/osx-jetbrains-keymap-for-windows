@@ -1,5 +1,7 @@
 import * as fs from 'fs';
 import * as parser from "fast-xml-parser";
+import {KeyAction, translate} from "./translator";
+import {print} from "./ahk-script-printer";
 
 export type Shortcut = { '@_first-keystroke': string }
 
@@ -16,8 +18,8 @@ const parseOption = {
 
 var xmlFilePath = "./resources/osx10_5_plus.xml"
 var executable = "java.exe"
-console.log(process.argv)
 var args = process.argv;
+
 for (var i=0; i<args.length-1; i++){
     if(args[i] == '-f' && args[i+1]){
         xmlFilePath = args[i+1];
@@ -41,16 +43,19 @@ for (var i=0;i<actions.length;i++){
     if(keys){
         if(keys.length){
             for (var key of keys) {
-                keyAction.push({"key": key["@_first-keystroke"],"action": actionName})
+                keyAction.push({"keys": (key["@_first-keystroke"] as string).split(' '),"action": actionName as string})
             }
         } else{
-            keyAction.push({"key": keys["@_first-keystroke"],"action": actionName})
+            keyAction.push({"keys": (keys["@_first-keystroke"] as string).split(' '),"action": actionName as string})
         }
     }
 }
 
 console.log(keyAction)
 
-//TODO: translate keymap to ahk script.
+const translateResult = translate(keyAction)
+const script = print('java.exe', translateResult)
 
-console.log(JSON.stringify(parsedKeymap.keymap));
+console.log(script)
+
+//TODO: translate keymap to ahk script.
