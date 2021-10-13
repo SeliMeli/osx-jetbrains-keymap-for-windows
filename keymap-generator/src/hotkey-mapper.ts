@@ -12,17 +12,22 @@ const keymapTable = {
     'SUBSTRATE': '-',
     'meta': '#',
     'control': '^',
+    'ctrl': '^',
     'shift': '+',
     'alt': '!',
     'BACK_SPACE': 'Backspace',
     'PAGE_UP': 'PgUp',
     'DELETE': 'Del',
     'EQUAL': '=',
+    'BACK_QUOTE': '`',
+    'MULTIPLY': '*'
 }
 
 const allowedNormalKeys = new Set(['HOME', 'END', 'ENTER', 'TAB', 'SPACE', 'INSERT', 'RIGHT', 'LEFT', 'UP', 'DOWN'])
 
-const isAlphabet = (s: string) => /^[a-zA-Z]$/.test(s)
+const isAlphanumeric = (s: string) => /^[a-zA-Z0-9]$/.test(s)
+
+const isFunctionKey = (s: string) => /^F[1-2]*[0-9]$/.test(s)
 
 export const translateKey = (shortcut: string) => {
 
@@ -30,8 +35,12 @@ export const translateKey = (shortcut: string) => {
         return keymapTable[shortcut]
     }
 
-    if (isAlphabet(shortcut)) {
+    if (isAlphanumeric(shortcut)) {
         return shortcut.toLowerCase()
+    }
+
+    if (isFunctionKey(shortcut)) {
+        return shortcut
     }
 
     if (allowedNormalKeys.has(shortcut)) {

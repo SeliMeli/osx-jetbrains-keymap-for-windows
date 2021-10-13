@@ -10,7 +10,8 @@ describe('hotkey translator tests', () => {
             ['meta', '#'],
             ['control', '^'],
             ['shift', '+'],
-            ['alt',  '!']
+            ['alt',  '!'],
+            ['ctrl', '^']
         ]
         modifierTranslationTable.forEach(([modifier, ahkHotkey]) => {
             it(`should translate ${modifier} to ${ahkHotkey} success`, () => {
@@ -20,11 +21,12 @@ describe('hotkey translator tests', () => {
         })
     })
 
-    describe('should translate all alphabetic keys to lowercase success', ()=>{
+    describe('should translate all alphanumeric keys to lowercase success', ()=>{
         const uppercaseAlphabetTranslations = [
             ['A', 'a'],
             ['B', 'b'],
             ['c', 'c'],
+            ['5', '5']
         ]
         uppercaseAlphabetTranslations.forEach(([arrowKey, ahkHotkey]) => {
             it(`should translate ${arrowKey} to ${ahkHotkey} success`, () => {
@@ -67,6 +69,19 @@ describe('hotkey translator tests', () => {
         })
     })
 
+    describe('should translate function keys success', ()=>{
+        const specialDefinedKeys = [
+            ['F1', 'F1'],
+            ['F12', 'F12'],
+        ]
+        specialDefinedKeys.forEach(([specialDefinedKey, ahkHotkey]) => {
+            it(`should translate ${specialDefinedKey} to ${ahkHotkey} success`, () => {
+                const result = translateKey(specialDefinedKey)
+                result.should.equal(ahkHotkey)
+            });
+        })
+    })
+
     describe('should translate symbols success', () => {
         const symbolsTranslation = [
             ['COMMA', ','],
@@ -78,6 +93,8 @@ describe('hotkey translator tests', () => {
             ['MINUS', '-'],
             ['SUBSTRATE', '-'],
             ['EQUAL', '='],
+            ['BACK_QUOTE', '`'],
+            ['MULTIPLY', '*'],
         ]
         symbolsTranslation.forEach(([symbol, ahkHotkey]) => {
             it(`should translate ${symbol} to ${ahkHotkey} success`, () => {
