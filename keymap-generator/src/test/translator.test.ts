@@ -49,4 +49,13 @@ describe('translator tests', () => {
 
         result.length.should.be.equal(0)
     })
+    it('should translate constructions with same keys success', () => {
+        const keyAction = [{keys: ['meta', 'K'], action: 'test one'}, {keys: ['meta', 'K'], action: 'test two'}]
+        const result = translate(keyAction)
+
+        result.length.should.be.equal(1)
+        const target = result[0] as TranslateResult
+        target.right.should.eql(['LWin', 'k'])
+        target.action.should.eql('test one & test two')
+    })
 })
