@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "generate autohotkeymap script from jetbrains keymap config",
   "main": "index.js",
+  "bin": {
+    "kmg": "./index.js"
+  },
   "scripts": {
     "start": "node index.js",
     "test": "mocha -r ts-node/register src/test/**/*.test.ts"
