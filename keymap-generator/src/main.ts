@@ -18,17 +18,17 @@ const keymapConfigReadStream = fs.readFileSync('./resources/osx10_5_plus.xml').t
 
 const parsedKeymap = parser.parse(keymapConfigReadStream, parseOption) as Keymap
 
-var keyAction = [] as any;
+const keyAction = [] as any[]
 
-var actions = parsedKeymap.keymap.action;
+const actions = parsedKeymap.keymap.action;
 
-for (var i=0;i<actions.length;i++){
-    var actionName = actions[i]['@_id'];
+for (let i=0; i<actions.length; i++){
+    const actionName = actions[i]['@_id'];
     console.log(actionName)
-    var keys = actions[i]["keyboard-shortcut"]
+    const keys = actions[i]["keyboard-shortcut"]
     if(keys){
         if(keys.length){ 
-            for (var key of keys) {
+            for (let key of keys) {
                 keyAction.push({"key": key["@_first-keystroke"],"action": actionName})
             }
         } else{
@@ -40,5 +40,3 @@ for (var i=0;i<actions.length;i++){
 console.log(keyAction)
 
 //TODO: translate keymap to ahk script.
-
-console.log(JSON.stringify(parsedKeymap.keymap))
