@@ -1,4 +1,4 @@
-import {translateKey} from "../hotkey-translator";
+import {translateKey} from "../hotkey-mapper";
 import * as chai from "chai";
 import {expect} from "chai";
 

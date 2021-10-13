@@ -46,7 +46,6 @@ rl.question('Enter xml file to be parsed-', (answer) => {
     console.log(keyAction)
 
     //TODO: translate keymap to ahk script.
-
-    console.log(JSON.stringify(parsedKeymap.keymap));
     rl.close();
 });
+
