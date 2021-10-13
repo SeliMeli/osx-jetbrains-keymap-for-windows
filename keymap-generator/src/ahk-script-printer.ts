@@ -1,7 +1,7 @@
 import {TranslateResult} from "./translator";
 import * as _ from "lodash";
 
-
+const splitter = '\n    '
 
 export const print = (processName: string, translateResults: (string | TranslateResult)[]) => {
     const printOneLine = printTranslateResult(processName)
@@ -10,7 +10,7 @@ LAlt::LWin
 LWin::LAlt
 #IfWinActive ahk_exe ${processName}
 {  
-    ${_.map(translateResults, r => printOneLine(r)).join('\n')}
+    ${_.map(translateResults, r => printOneLine(r)).join(splitter)}
 }
     `
 }

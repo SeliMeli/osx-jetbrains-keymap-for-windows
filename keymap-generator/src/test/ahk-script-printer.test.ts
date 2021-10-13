@@ -9,7 +9,7 @@ LAlt::LWin
 LWin::LAlt
 #IfWinActive ahk_exe ${processName}
 {  
-    ${results.join('\n')}
+    ${results.join('\n    ')}
 }
     `
 }
