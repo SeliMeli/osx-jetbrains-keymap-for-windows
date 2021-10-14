@@ -1,6 +1,6 @@
 {
   "name": "osx-jetbrains-keymap-generator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "generate autohotkeymap script from jetbrains keymap config for windows user",
   "main": "index.js",
   "bin": {
@@ -37,5 +37,6 @@
     "commander": "^8.2.0",
     "fast-xml-parser": "^3.20.3",
     "lodash": "^4.17.21"
-  }
+  },
+  "files": ["dist"]
 }
