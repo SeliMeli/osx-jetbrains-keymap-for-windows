@@ -19,6 +19,8 @@ const keymapTable = {
     'PAGE_UP': 'PgUp',
     'DELETE': 'Del',
     'EQUAL': '=',
+    'EQUALS': '=',
+    'DIVIDE': '/',
     'BACK_QUOTE': '`',
     'MULTIPLY': '*'
 }

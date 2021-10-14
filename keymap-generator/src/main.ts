@@ -1,61 +1,38 @@
 import * as fs from 'fs';
-import * as parser from "fast-xml-parser";
-import {KeyAction, translate} from "./translator";
+
+import {translate} from "./translator";
 import {print} from "./ahk-script-printer";
+import {Command} from "commander";
+import {getParsedResult} from "./xmlParser";
 
-export type Shortcut = { '@_first-keystroke': string }
 
-export type TargetKeymapItem = {'keyboard-shortcut': Shortcut | Shortcut[]}
+const keyGeneratorProgram = new Command()
+keyGeneratorProgram
+    .usage('kmg [options]')
+    .requiredOption('-f, --file <file>', 'path of jetbrains keymap xml file')
+    .option('-e, --exec <exec>', 'windows process name that ahk need to send key strike to', 'java.exe')
+    .option('-d, --destination <destination>', 'generated ahk script file location')
+    .showSuggestionAfterError()
+    .showHelpAfterError()
 
-export type Keymap = {'keymap': { 'action': [TargetKeymapItem | any] }}
+keyGeneratorProgram.parse()
 
-const parseOption = {
-    ignoreAttributes: false,
-    parseNodeValue : false,
-    parseAttributeValue : true,
-    trimValues: true,
-}
+const options = keyGeneratorProgram.opts()
 
-var xmlFilePath = "./resources/osx10_5_plus.xml"
-var executable = "java.exe"
-var args = process.argv;
+const keymapConfigReadStream = fs.readFileSync(options.file).toString()
 
-for (var i=0; i<args.length-1; i++){
-    if(args[i] == '-f' && args[i+1]){
-        xmlFilePath = args[i+1];
+const translateResult = translate(getParsedResult(keymapConfigReadStream))
+const script = print(options.exec, translateResult)
+
+
+const destination = options.destination;
+
+if (destination) {
+    if (fs.existsSync(destination) && fs.lstatSync(destination).isDirectory()) {
+        throw `destination is directory: ${destination}`
     }
-    if(args[i] == '-ex' && args[i+1]){
-        executable = args[i+1];
-    }
+    console.info(`Generated file: ${destination}`)
+    fs.writeFileSync(destination, script)
+} else {
+    console.info(script)
 }
-
-const keymapConfigReadStream = fs.readFileSync(xmlFilePath).toString()
-//./resources/osx10_5_plus.xml
-const parsedKeymap = parser.parse(keymapConfigReadStream, parseOption) as Keymap
-
-var keyAction = [] as any;
-
-var actions = parsedKeymap.keymap.action;
-
-for (var i=0;i<actions.length;i++){
-    var actionName = actions[i]['@_id'];
-    var keys = actions[i]["keyboard-shortcut"]
-    if(keys){
-        if(keys.length){
-            for (var key of keys) {
-                keyAction.push({"keys": (key["@_first-keystroke"] as string).split(' '),"action": actionName as string})
-            }
-        } else{
-            keyAction.push({"keys": (keys["@_first-keystroke"] as string).split(' '),"action": actionName as string})
-        }
-    }
-}
-
-console.log(keyAction)
-
-const translateResult = translate(keyAction)
-const script = print('java.exe', translateResult)
-
-console.log(script)
-
-//TODO: translate keymap to ahk script.
