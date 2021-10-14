@@ -26,10 +26,10 @@ jobs:
         node-version: 14
     - name: set up local
       run: npm install
-      working-directory: ./key-generator
-    - working-directory: ./key-generator
+      working-directory: ./keymap-generator
+    - working-directory: ./keymap-generator
       run: npm ci
-    - working-directory: ./key-generator
+    - working-directory: ./keymap-generator
       run: npm test
       name: test
 
