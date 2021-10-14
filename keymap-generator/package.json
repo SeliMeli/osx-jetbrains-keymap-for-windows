@@ -11,6 +11,7 @@
     "test": "mocha -r ts-node/register src/test/**/*.test.ts"
   },
   "author": "selimeli",
+  "contributors": ["audaz-47"],
   "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.2.21",

@@ -21,16 +21,18 @@ export interface TranslateResult {
     right: string[]
 }
 
+const isMetaKeyOrArrowKey = (action:KeyAction) => action.keys.some(key => key === MetaKey || ArrowKeys.includes(key));
+
 export const translate: (actions: KeyAction[]) => (string | TranslateResult)[] = (actions: KeyAction[]) => {
 
     let ahkStore: { [Key: string]: TranslateResult } = {}
     const errStore: (string | TranslateResult)[] = []
 
-    _.filter(actions,action => action.keys.some(key => key === MetaKey || ArrowKeys.includes(key)))
+    _.filter(actions, isMetaKeyOrArrowKey)
         .forEach((action) => {
             try {
                 const translated = _.map(action.keys, (key) => translateKey(key))
-                let left = translated.join('')
+                const left = translated.join('')
                 if (ahkStore[left]) {
                     ahkStore[left].action = `${ahkStore[left].action} & ${action.action}`
                 } else {
@@ -43,6 +45,4 @@ export const translate: (actions: KeyAction[]) => (string | TranslateResult)[] =
     return [...Object.values(ahkStore),...errStore]
 }
 
-const translateRight = (translated: string[]) => {
-    return _.map(translated, (key) => modifierMap[key] ?? key)
-}
+const translateRight = (translated: string[]) => _.map(translated, (key) => modifierMap[key] ?? key)
