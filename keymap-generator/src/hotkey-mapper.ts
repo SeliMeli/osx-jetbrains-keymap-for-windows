@@ -33,7 +33,7 @@ const isFunctionKey = (s: string) => /^F[1-2]*[0-9]$/.test(s)
 
 export const translateKey = (shortcut: string) => {
     const uppercaseShortcut = shortcut.toUpperCase()
-    if (keymapTable[shortcut]!=undefined) {
+    if (keymapTable[uppercaseShortcut]!=undefined) {
         return keymapTable[uppercaseShortcut]
     }
 
