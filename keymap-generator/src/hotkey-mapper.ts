@@ -10,11 +10,11 @@ const keymapTable = {
     'ADD': '!=',
     'MINUS': '-',
     'SUBSTRATE': '-',
-    'meta': '#',
-    'control': '^',
-    'ctrl': '^',
-    'shift': '+',
-    'alt': '!',
+    'META': '#',
+    'CONTROL': '^',
+    'CTRL': '^',
+    'SHIFT': '+',
+    'ALT': '!',
     'BACK_SPACE': 'Backspace',
     'PAGE_UP': 'PgUp',
     'DELETE': 'Del',
@@ -32,21 +32,21 @@ const isAlphanumeric = (s: string) => /^[a-zA-Z0-9]$/.test(s)
 const isFunctionKey = (s: string) => /^F[1-2]*[0-9]$/.test(s)
 
 export const translateKey = (shortcut: string) => {
-
+    const uppercaseShortcut = shortcut.toUpperCase()
     if (keymapTable[shortcut]!=undefined) {
-        return keymapTable[shortcut]
+        return keymapTable[uppercaseShortcut]
     }
 
-    if (isAlphanumeric(shortcut)) {
+    if (isAlphanumeric(uppercaseShortcut)) {
         return shortcut.toLowerCase()
     }
 
-    if (isFunctionKey(shortcut)) {
-        return shortcut
+    if (isFunctionKey(uppercaseShortcut)) {
+        return uppercaseShortcut
     }
 
-    if (allowedNormalKeys.has(shortcut)) {
-        return _.capitalize(shortcut)
+    if (allowedNormalKeys.has(uppercaseShortcut)) {
+        return _.capitalize(uppercaseShortcut)
     }
 
     throw `unknown key: ${shortcut}`

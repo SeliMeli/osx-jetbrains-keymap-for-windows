@@ -104,6 +104,28 @@ describe('hotkey translator tests', () => {
         })
     })
 
+    describe('should support lowercase symbols', () => {
+        const symbolsTranslation = [
+            ['comma', ','],
+            ['semicolon', ';'],
+            ['slash', '/'],
+            ['open_bracket', '['],
+            ['close_bracket', ']'],
+            ['add', '!='],
+            ['minus', '-'],
+            ['substrate', '-'],
+            ['equal', '='],
+            ['back_quote', '`'],
+            ['multiply', '*'],
+        ]
+        symbolsTranslation.forEach(([symbol, ahkHotkey]) => {
+            it(`should translate ${symbol} to ${ahkHotkey} success`, () => {
+                const result = translateKey(symbol)
+                result.should.equal(ahkHotkey)
+            });
+        })
+    })
+
     it('should throw error if unknown key is passed', () => {
         const unknownKey = 'HELL'
         expect(() => translateKey(unknownKey)).to.throws(`unknown key: ${unknownKey}`)
