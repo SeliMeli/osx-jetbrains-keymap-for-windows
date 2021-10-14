@@ -1,4 +1,6 @@
 # osx-jetbrains-keymap-for-windows
+![test](https://github.com/SeliMeli/osx-jetbrains-keymap-for-windows/actions/workflows/node.js.yml/badge.svg)
+
 I like using Jetbrains IDE on my mac. I want to use it on Windows as well without having to re-learn a windows specific keymap. The whole trick is to using win key as meta key (Win key is not a valid modifier key in Java) and block all other programmes(yes, including you, windows) from intercepting our Jetbrains' shortcut.
 
 
@@ -8,6 +10,8 @@ And of course, download the osx keymap plugin at plugin market, change your IDE 
 
 To block other programmes, download a [Autohotkey](https://www.autohotkey.com/), Run the script in this repo.
 
+
 As a reuslt, your left windows key will work as`⌥` key and your left alt key will work as `⌘` in your IDE.
+
 
 Enjoy~
