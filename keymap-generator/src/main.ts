@@ -1,6 +1,5 @@
 import * as fs from 'fs';
 import * as parser from "fast-xml-parser";
-import * as readline from 'readline';
 import {KeyAction, translate} from "./translator";
 import {print} from "./ahk-script-printer";
 
@@ -17,40 +16,46 @@ const parseOption = {
     trimValues: true,
 }
 
-let rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+var xmlFilePath = "./resources/osx10_5_plus.xml"
+var executable = "java.exe"
+var args = process.argv;
 
-rl.question('Enter xml file to be parsed-', (answer) => {
-    const keymapConfigReadStream = fs.readFileSync(answer).toString()
-    //./resources/osx10_5_plus.xml
-    const parsedKeymap = parser.parse(keymapConfigReadStream, parseOption) as Keymap
+for (var i=0; i<args.length-1; i++){
+    if(args[i] == '-f' && args[i+1]){
+        xmlFilePath = args[i+1];
+    }
+    if(args[i] == '-ex' && args[i+1]){
+        executable = args[i+1];
+    }
+}
 
-    var keyAction: KeyAction[] = [] as any;
+const keymapConfigReadStream = fs.readFileSync(xmlFilePath).toString()
+//./resources/osx10_5_plus.xml
+const parsedKeymap = parser.parse(keymapConfigReadStream, parseOption) as Keymap
 
-    var actions = parsedKeymap.keymap.action;
+var keyAction = [] as any;
 
-    for (var i=0;i<actions.length;i++){
-        var actionName = actions[i]['@_id'];
-        var keys = actions[i]["keyboard-shortcut"]
-        if(keys){
-            if(keys.length){
-                for (var key of keys) {
-                    keyAction.push({"keys": (key["@_first-keystroke"] as string).split(' '),"action": actionName as string})
-                }
-            } else{
-                keyAction.push({"keys": (keys["@_first-keystroke"] as string).split(' '),"action": actionName as string})
+var actions = parsedKeymap.keymap.action;
+
+for (var i=0;i<actions.length;i++){
+    var actionName = actions[i]['@_id'];
+    var keys = actions[i]["keyboard-shortcut"]
+    if(keys){
+        if(keys.length){
+            for (var key of keys) {
+                keyAction.push({"keys": (key["@_first-keystroke"] as string).split(' '),"action": actionName as string})
             }
+        } else{
+            keyAction.push({"keys": (keys["@_first-keystroke"] as string).split(' '),"action": actionName as string})
         }
     }
+}
 
-    const translateResult = translate(keyAction)
-    const script = print('java.exe', translateResult)
+console.log(keyAction)
 
-    console.log(script)
+const translateResult = translate(keyAction)
+const script = print('java.exe', translateResult)
 
-    //TODO: translate keymap to ahk script.
-    rl.close();
-});
+console.log(script)
 
+//TODO: translate keymap to ahk script.
