@@ -1,13 +1,14 @@
 {
   "name": "osx-jetbrains-keymap-generator",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "generate autohotkeymap script from jetbrains keymap config for windows user",
   "main": "index.js",
   "bin": {
     "kmg": "./index.js"
   },
   "scripts": {
-    "start": "node index.js",
+    "build": "tsc",
+    "start": "ts-node src/main.ts",
     "test": "mocha -r ts-node/register src/test/**/*.test.ts"
   },
   "author": "selimeli",
