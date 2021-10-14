@@ -1,7 +1,7 @@
 {
-  "name": "keymap-generator",
+  "name": "osx-jetbrains-keymap-generator",
   "version": "1.0.0",
-  "description": "generate autohotkeymap script from jetbrains keymap config",
+  "description": "generate autohotkeymap script from jetbrains keymap config for windows user",
   "main": "index.js",
   "bin": {
     "kmg": "./index.js"
