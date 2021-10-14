@@ -8,8 +8,13 @@ So first, you need to make your Jetbrains IDE take win key as a meta key. At you
 And of course, download the osx keymap plugin at plugin market, change your IDE keymap to the osx one.
 
 
-To block other programmes, download a [Autohotkey](https://www.autohotkey.com/), Run the script in this repo.
+To block other programmes, download a [Autohotkey](https://www.autohotkey.com/), Run the example ahk in this repo.
 
+or you can get a ahk script generator from npm to generate your own keymap script. 
+
+using `npm -i -g osx-jetbrains-keymap-generator` to get the generator and run `kmp -f <your keymap xml> -e <jetbrains process name>`
+
+get help `kmp -h`
 
 As a reuslt, your left windows key will work as`⌥` key and your left alt key will work as `⌘` in your IDE.
 
